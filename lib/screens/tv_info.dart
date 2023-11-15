@@ -29,7 +29,7 @@ class TvInfo extends StatelessWidget {
           ),
         ),       
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 120.0),       
+          padding: const EdgeInsets.symmetric(horizontal: 10.0),       
         child: BlocBuilder<TvInfoBloc, TvInfoState>(
         builder: (context, state) {
           if (state is TvInfoLoading) {
@@ -160,24 +160,23 @@ class TvInfo extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              padding: const EdgeInsets.all(12),
-                              width: MediaQuery.of(context).size.width * .6,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("Plot:\n",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold)),
-                                  state.tmdb['overview'] == ""
-                                      ? Text("No Overview found for this Show.")
-                                      : ExpandableText(
-                                         
-                                          state.tmdb['overview'],
-                                          trimLines: 3, key: GlobalKey(),
-                                        ),
-                                ],
-                              ),
-                            ),
+  padding: const EdgeInsets.all(12),
+  width: MediaQuery.of(context).size.width * .6,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text("Plot:\n", style: TextStyle(fontWeight: FontWeight.bold)),
+      state.tmdb['overview'] == ""
+          ? Text("No Overview found for this Show.")
+          : ExpandableText(
+              state.tmdb['overview'],
+              trimLines: 3,
+              key: GlobalKey(),
+            ),
+    ],
+  ),
+)
+,
                           ],
                         ),
                       ),

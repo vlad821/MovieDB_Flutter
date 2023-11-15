@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/blocs/home_bloc/home_page_bloc.dart';
-//import 'package:movies/screens/widgets/company_carasouls.dart';
 import 'package:movies/screens/widgets/movies_carausols.dart';
 import 'package:movies/screens/widgets/treanding.dart';
 import 'package:movies/screens/widgets/trending_tv.dart';

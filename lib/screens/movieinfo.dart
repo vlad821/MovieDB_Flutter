@@ -26,7 +26,7 @@ class MovieInfo extends StatelessWidget {
           ),
         ),       
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 120.0),       
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),       
         child: BlocBuilder<MovieInfoBloc, MovieInfoState>(
           builder: (context, state) {
             if (state is MovieInfoLoading) {

@@ -2,10 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/blocs/bloc/search_tv_bloc.dart';
+import 'package:movies/chat/pages/homee.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
-import 'package:movies/blocs/home_bloc/home_page_bloc.dart';
 import 'package:movies/blocs/search_bloc/search_movies_bloc.dart';
-import 'package:movies/screens/Homepage.dart';
 import 'package:movies/screens/search_page/serach.dart';
 import 'package:movies/screens/search_tv/search.dart';
 
@@ -22,10 +21,7 @@ class _BottomNavViewState extends State<BottomNavView> {
   
   // int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    BlocProvider(
-      create: (context) => HomePageBloc()..add(HomePageContent()),
-      child: Home(),
-    ),
+   Homme(),
     BlocProvider(
       create: (context) => SearchMoviesBloc()..add(SearchLoadContent()),
       child: SearchPage(),
@@ -37,12 +33,15 @@ class _BottomNavViewState extends State<BottomNavView> {
   ];
   List<PersistentBottomNavBarItem> _navBarsItems() {
     return [
-      PersistentBottomNavBarItem(
-        inactiveColorPrimary: Colors.grey,
-        icon: Icon(Icons.home),
-        activeColorPrimary: Color.fromARGB(255, 160, 18, 18),
-        title: ("Home"),
-      ),
+     PersistentBottomNavBarItem(
+   // Use 'screen' or the appropriate parameter
+  inactiveColorPrimary: Colors.grey,
+  icon: Icon(Icons.chat),
+  activeColorPrimary: Color.fromARGB(255, 160, 18, 18),
+  title: ("Chat"),
+),
+
+
       PersistentBottomNavBarItem(
         inactiveColorPrimary: Colors.grey,
         icon: Icon(Icons.search),
@@ -65,7 +64,7 @@ class _BottomNavViewState extends State<BottomNavView> {
   }
 
   PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
+      PersistentTabController(initialIndex: 1);
 
   @override
   Widget build(BuildContext context) {
