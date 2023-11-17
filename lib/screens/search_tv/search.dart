@@ -105,7 +105,7 @@ class SearchPageTv extends StatelessWidget {
                             iconColor: Colors.white,
                             fillColor: Colors.white,
                             filled: true,
-                            hoverColor: Colors.pink,
+//hoverColor: Colors.pink,
                               hintText: "Search Tv Shows..",
                               suffixIcon: IconButton(
                                 icon: Icon(Icons.search),

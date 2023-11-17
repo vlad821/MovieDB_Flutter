@@ -1,7 +1,10 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/chat/pages/auth_service.dart';
 import 'package:movies/chat/pages/chat_page.dart';
-import 'package:movies/screens/bottom_nav_bar.dart';
+import 'package:provider/provider.dart';
 
 class Homme extends StatefulWidget {
   const Homme({super.key});
@@ -12,86 +15,66 @@ class Homme extends StatefulWidget {
 
 class _HommeState extends State<Homme> {
   //sign user out
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  void signOut() {
+    //get authservice
+    final authService = Provider.of<AuthService>(context, listen: false);
+    authService.signOut();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Home Page'), actions: [
-        IconButton(onPressed: signUserOut, icon: const Icon(Icons.logout))
+        IconButton(
+          onPressed: signOut,
+          icon: const Icon(Icons.logout),
+        )
       ]),
-      body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color.fromARGB(255, 123, 5, 5),
-                Color.fromARGB(255, 60, 2, 2)
-              ], // Change colors as needed
-            ),
-          ),
-          child: _buildUserList()),
+      body: _buildUserList(),
     );
   }
 
-  Widget _buildUserList() {
-    return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('users').snapshots(),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text('error');
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return Text('loading...');
-        }
-        return ListView(
-          children: snapshot.data!.docs
-              .map<Widget>((doc) => _buildUserListItem(doc))
-              .toList(),
-        );
-      },
-    );
-  }
 
-  Widget _buildUserListItem(DocumentSnapshot document) {
-    Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-    //display users
-    return Center(
-        child: Padding(
-     padding: EdgeInsets.symmetric(
-  horizontal: MediaQuery.of(context).size.width / 3,
-  vertical: MediaQuery.of(context).size.height / 3,
-),
-
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical:8.0),
-          child: Text('Choose someone you want to chat!',style: TextStyle(
-             color: Colors.white,
-             fontSize: 25,
-              fontWeight: FontWeight.bold,
-              // You can add more styling properties here
-            ),),
-        ),
-       Card(
-  color: Colors.white, // Set the background color of the Card
-  child: ListTile(
-    title: Text(data['email']),
-    onTap: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ChatPage(
-            receiverUserEmail: data['email'],
-            receiverID: data['uid'],
-          ),
-        ),
+Widget _buildUserList() {
+  return StreamBuilder<QuerySnapshot>(
+    stream: FirebaseFirestore.instance.collection('users').snapshots(),
+    builder: (context, snapshot) {
+      if (snapshot.hasError) {
+        return Text('error');
+      }
+      if (snapshot.connectionState == ConnectionState.waiting) {
+        return Text('loading...');
+      }
+      return ListView(
+        children: snapshot.data!.docs
+            .map<Widget>((doc) => _buildUserListItem(doc))
+            .toList(),
       );
     },
-  ),
-)
+  );
+}
 
-      ]),
-    ));
+Widget _buildUserListItem(DocumentSnapshot document) {
+  Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+  //display users
+
+  if (_auth.currentUser!.email != data['email']) {
+    return ListTile(
+      title: Text(data['email']),
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ChatPage(
+                      receiverUserEmail: data['email'],
+                      receiverID: data['uid'],
+                    )
+                    ));
+      },
+    );
+  } else {
+    return Container();
   }
+}
 }
