@@ -64,7 +64,6 @@ class _ChatPageState extends State<ChatPage> {
           ),
         ));
   }
-
   //build message list
   Widget _buildMessageList() {
     return StreamBuilder(
@@ -84,7 +83,6 @@ class _ChatPageState extends State<ChatPage> {
           );
         });
   }
-
   //build message item
   Widget _buildMessageItem(DocumentSnapshot document) {
     Map<String, dynamic> data = document.data() as Map<String, dynamic>;
@@ -111,7 +109,6 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
-
   //build message input
   Widget _buildMessageInput() {
     return Row(
