@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:movies/screens/auth/auth_page.dart';
 import 'firebase_options.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -20,6 +19,7 @@ class MyApp extends StatelessWidget {
         SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      title: 'MovieApp_Flutter',
       theme: ThemeData(
         textTheme: GoogleFonts.montserratTextTheme(),
         primaryColor: Color.fromARGB(255, 111, 6, 23),
